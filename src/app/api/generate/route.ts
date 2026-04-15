@@ -95,22 +95,30 @@ export async function POST(request: NextRequest) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Gemini API error:", response.status, errorText);
-      throw new Error(`Gemini API error: ${response.status}`);
+      return NextResponse.json(
+        { error: "Gemini API error", details: errorText },
+        { status: 500 }
+      );
     }
 
     const result = await response.json();
+    console.log("Gemini response:", JSON.stringify(result, null, 2));
     const praise = result.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!praise) {
-      console.error("Gemini response:", JSON.stringify(result, null, 2));
-      throw new Error("No praise generated");
+      console.error("No praise in response:", JSON.stringify(result, null, 2));
+      return NextResponse.json(
+        { error: "No praise generated", details: result },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ praise: praise.trim() });
   } catch (error) {
     console.error("Generate error:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Failed to generate praise" },
+      { error: "Failed to generate praise", details: message },
       { status: 500 }
     );
   }
