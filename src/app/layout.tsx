@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Noto_Serif, Inter } from "next/font/google";
+import { inject } from "@vercel/analytics";
 import ClientLayout from "@/components/ClientLayout";
 import "./globals.css";
+
+inject();
 
 const notoSerif = Noto_Serif({
   subsets: ["latin"],
