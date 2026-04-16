@@ -90,6 +90,7 @@ export interface Translations {
   changeMood: string;
   viewAllStyles: string;
   selectStyle: string;
+  resultPageDesc: string;
   // Errors
   noApiKey: string;
   // About
@@ -217,6 +218,8 @@ const translations: Record<Language, Translations> = {
       "Change the mood of your keepsake with different praise styles.",
     viewAllStyles: "View all styles",
     selectStyle: "Select Style",
+    resultPageDesc:
+      "This moment captures the essence of beauty. Every detail in this frame speaks to a soul that is unafraid to shine brightly, even in the quietest of hours.",
     // Errors
     noApiKey: "API key not configured",
     // About
@@ -337,6 +340,8 @@ const translations: Record<Language, Translations> = {
     changeMood: "用不同的赞美风格改变你纪念品的心情。",
     viewAllStyles: "查看所有风格",
     selectStyle: "选择风格",
+    resultPageDesc:
+      "这一刻捕捉了美的精髓。画面中的每一个细节都在讲述一个灵魂，它无畏地闪耀着光芒，即使在最寂静的时刻。",
     // Errors
     noApiKey: "未配置 API 密钥",
     // About

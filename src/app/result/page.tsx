@@ -207,9 +207,7 @@ export default function ResultPage() {
                 </p>
                 <div className="h-0.5 w-16 bg-tertiary-container" />
                 <p className="font-body text-on-surface-variant leading-relaxed text-lg">
-                  This moment captures the essence of beauty. Every detail in this
-                  frame speaks to a soul that is unafraid to shine brightly, even
-                  in the quietest of hours.
+                  {t.resultPageDesc}
                 </p>
               </div>
             </div>
