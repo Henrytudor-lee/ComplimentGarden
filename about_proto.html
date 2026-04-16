@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About | Aura of Praise</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#f4dce4",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e7e1e3",
+                    "primary-fixed": "#ffd9e4",
+                    "on-tertiary-fixed": "#221b00",
+                    "on-primary-fixed": "#330f1f",
+                    "on-secondary-container": "#716066",
+                    "surface-tint": "#805062",
+                    "outline": "#827377",
+                    "on-tertiary-fixed-variant": "#544600",
+                    "on-tertiary-container": "#665500",
+                    "tertiary": "#705d00",
+                    "primary-fixed-dim": "#f2b6cb",
+                    "primary": "#805062",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#ffe16d",
+                    "surface": "#fef8fa",
+                    "secondary-fixed-dim": "#d7c1c8",
+                    "secondary-fixed": "#f4dce4",
+                    "inverse-surface": "#323031",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#fef8fa",
+                    "surface-container-highest": "#e7e1e3",
+                    "surface-container-high": "#ece7e9",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#ded9db",
+                    "surface-container": "#f2ecee",
+                    "on-primary-container": "#76485a",
+                    "tertiary-fixed-dim": "#e9c400",
+                    "on-secondary-fixed-variant": "#524249",
+                    "inverse-on-surface": "#f5eff1",
+                    "surface-bright": "#fef8fa",
+                    "on-surface-variant": "#504447",
+                    "secondary": "#6b5a60",
+                    "on-secondary-fixed": "#25181e",
+                    "on-surface": "#1d1b1d",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1d1b1d",
+                    "inverse-primary": "#f2b6cb",
+                    "tertiary-container": "#efc900",
+                    "surface-container-low": "#f8f2f4",
+                    "primary-container": "#f8bbd0",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#d4c2c6",
+                    "on-primary-fixed-variant": "#65394b",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/60 dark:bg-stone-900/60 backdrop-blur-md shadow-[0_20px_40px_rgba(128,80,98,0.06)]">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 py-4">
+<div class="text-2xl font-['Noto_Serif'] font-black tracking-tighter text-[#805062] dark:text-[#f4dce4]">
+                Aura of Praise
+            </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-['Noto_Serif'] text-lg font-medium text-stone-500 dark:text-stone-400 hover:text-[#805062] transition-colors" href="#">Home</a>
+<a class="font-['Noto_Serif'] text-lg font-medium text-stone-500 dark:text-stone-400 hover:text-[#805062] transition-colors" href="#">History</a>
+<a class="font-['Noto_Serif'] text-lg font-medium text-[#805062] dark:text-[#f4dce4] border-b-2 border-[#efc900] pb-1" href="#">About</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#805062] text-2xl cursor-pointer hover:opacity-80 transition-opacity">account_circle</span>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 max-w-7xl mx-auto px-6">
+<!-- Hero: Our Vision -->
+<section class="relative mb-32">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="relative z-10">
+<span class="inline-block px-4 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-xs font-bold tracking-widest uppercase mb-6 shadow-[0_4px_12px_rgba(239,201,0,0.3)]">
+                        OUR VISION
+                    </span>
+<h1 class="text-6xl md:text-8xl font-black text-primary leading-tight -tracking-widest mb-8">
+                        The Digital <br/><span class="italic font-normal">Keepsake</span>
+</h1>
+<p class="text-xl text-on-surface-variant leading-relaxed font-light max-w-xl">
+                        Aura of Praise is more than an application; it is an intention. We empower users to express love and admiration through the delicate intersection of words and digital art.
+                    </p>
+</div>
+<div class="relative">
+<div class="absolute -top-12 -left-12 w-64 h-64 bg-primary-container/30 rounded-full blur-3xl"></div>
+<div class="rounded-lg overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700">
+<img class="w-full h-[500px] object-cover" data-alt="A warm, cozy, and heartwarming scene with a sunlit corner, a soft blanket, a cup of tea, and a romantic photo frame." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ0bbVxsCHDr6iqR7K_1HIYUK0j_Jx885VqnlCD6AZtz8PMK4D5IBbNHtWWYHsYLNsxoPxcy4z1bw_MN_Bfg_S099YJDUjONJc8PnJ5C_kmh7tJjPG3rp-4cJbeqQqmi9HjR8obZifPv7aM1AMKFxXnqsm0zKDW28Bcl2JBe-b2gOkvdughTBbT_TGIKJhUdCKdsdGNI671K5SyRWUQqY5q5u6Yu-ZoizuTxhURoDMqwIvd11med3oXmT9Ld2jEL5vvqL8PgooJZ8y"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Section: The Heart & Technical Architecture -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+<!-- The Heart -->
+<div class="md:col-span-2 bg-surface-container-lowest p-12 rounded-lg relative overflow-hidden shadow-[0_20px_40px_rgba(128,80,98,0.06)]">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-9xl">favorite</span>
+</div>
+<h2 class="text-4xl font-bold text-primary mb-6">The Heart of the Project</h2>
+<p class="text-lg text-on-surface-variant leading-relaxed mb-6">
+                    Aura of Praise was born from a simple observation: the world needs more deliberate kindness. We wanted to create a space that felt like a curated journal—a place where affection isn't just a notification, but a beautiful, tactile-feeling memory.
+                </p>
+<p class="text-lg text-on-surface-variant leading-relaxed italic">
+                    Inspired by the timeless nature of heirlooms, every interaction is designed to feel permanent, warm, and deeply personal.
+                </p>
+</div>
+<!-- AI Section -->
+<div class="bg-secondary-container p-12 rounded-lg flex flex-col justify-between">
+<div>
+<h3 class="text-2xl font-bold text-on-secondary-container mb-4">AI-Driven Eloquence</h3>
+<p class="text-sm text-on-secondary-container/80 leading-relaxed">
+                        Our engine uses advanced semantic modeling to transform simple sentiments into poetic tributes, ensuring every praise feels unique and elevated.
+                    </p>
+</div>
+<div class="mt-8 pt-8 border-t border-on-secondary-container/10">
+<span class="material-symbols-outlined text-4xl text-primary mb-2" data-weight="fill">auto_awesome</span>
+<p class="text-xs font-bold text-on-secondary-container tracking-widest uppercase">The Aura System</p>
+</div>
+</div>
+<!-- Architecture / System -->
+<div class="bg-surface-container-low p-12 rounded-lg flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-6 shadow-sm">
+<span class="material-symbols-outlined text-primary text-3xl">architecture</span>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-4">Elegant Architecture</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                    Built with a focus on "Organic Depth," our architecture prioritizes tonal layering over rigid borders, creating a UI that breathes.
+                </p>
+</div>
+<!-- Open Source -->
+<div class="md:col-span-2 bg-primary text-on-primary p-12 rounded-lg flex flex-col md:flex-row items-center justify-between gap-8">
+<div>
+<h3 class="text-3xl font-bold mb-2">Our Core is Open</h3>
+<p class="text-primary-fixed-dim max-w-md">The beauty of praise belongs to everyone. Aura of Praise is fully open source and community-driven.</p>
+</div>
+<a class="px-10 py-5 bg-tertiary-container text-on-tertiary-container rounded-full font-bold text-lg flex items-center gap-3 hover:scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined">code</span>
+                    GitHub Repository
+                </a>
+</div>
+</section>
+<!-- Connect with Us -->
+<section class="max-w-3xl mx-auto text-center py-20 bg-surface-container-lowest rounded-lg shadow-sm">
+<h2 class="text-4xl font-bold text-primary mb-6 italic">Connect with Us</h2>
+<p class="text-on-surface-variant mb-12 px-8">We would love to hear your stories of affection and how Aura has helped you celebrate the beauty in your world.</p>
+<div class="flex flex-wrap justify-center gap-12">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-primary">mail</span>
+</div>
+<span class="font-medium">hello@auraofpraise.com</span>
+<span class="text-xs text-stone-500 uppercase tracking-widest mt-1">General Inquiry</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-primary">terminal</span>
+</div>
+<span class="font-medium">dev@auraofpraise.com</span>
+<span class="text-xs text-stone-500 uppercase tracking-widest mt-1">Technical Support</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-20 py-12 bg-[#f8f2f4] dark:bg-stone-950 font-['Inter'] text-sm tracking-wide">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 gap-6 max-w-7xl mx-auto">
+<div class="font-['Noto_Serif'] italic text-[#805062] text-xl">
+                Aura of Praise
+            </div>
+<div class="flex gap-8">
+<a class="text-stone-500 hover:text-[#805062] transition-colors" href="#">Privacy</a>
+<a class="text-stone-500 hover:text-[#805062] transition-colors" href="#">Terms</a>
+<a class="text-stone-500 hover:text-[#805062] transition-colors" href="#">Contact Us</a>
+<a class="text-stone-500 hover:text-[#805062] transition-colors" href="#">Support</a>
+</div>
+<div class="text-[#805062] dark:text-[#f4dce4]">
+                © 2024 Aura of Praise. Crafted with affection.
+            </div>
+</div>
+</footer>
+</body></html>

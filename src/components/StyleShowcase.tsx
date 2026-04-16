@@ -1,41 +1,41 @@
 "use client";
 
+import { useLanguage } from "@/lib/i18n";
+
 export default function StyleShowcase() {
+  const { t } = useLanguage();
+
   const styles = [
     {
       icon: "brush",
-      title: "Ancient Poetry",
-      description:
-        "Elegant verses inspired by the classics, celebrating timeless beauty with traditional grace.",
-      tag: "Refined",
+      titleKey: "ancientPoetry" as const,
+      descKey: "ancientPoetrySubtitle" as const,
+      tagKey: "ancientPoetryTag" as const,
       bgColor: "bg-secondary-container",
       textColor: "text-on-secondary-container",
     },
     {
       icon: "favorite",
-      title: "Modern Romantic",
-      description:
-        "Direct, heartfelt, and contemporary expressions of love that speak to the heart of today.",
-      tag: "Passionate",
+      titleKey: "modernRomantic" as const,
+      descKey: "modernRomanticSubtitle" as const,
+      tagKey: "passionate" as const,
       bgColor: "bg-primary-fixed",
       textColor: "text-on-primary-fixed",
     },
     {
       icon: "menu_book",
-      title: "English Muse",
-      description:
-        "Shakespearean depth and Victorian charm, for a sophisticated touch of international flair.",
-      tag: "Sophisticated",
+      titleKey: "englishMuse" as const,
+      descKey: "englishMuseSubtitle" as const,
+      tagKey: "sophisticated" as const,
       bgColor: "bg-tertiary-fixed",
       textColor: "text-on-tertiary-fixed",
       glow: true,
     },
     {
       icon: "auto_awesome_motion",
-      title: "Playful & Cute",
-      description:
-        "Lighthearted, witty, and sweet praises that bring a radiant smile to her face instantly.",
-      tag: "Enchanting",
+      titleKey: "playfulCute" as const,
+      descKey: "playfulCuteSubtitle" as const,
+      tagKey: "enchanting" as const,
       bgColor: "bg-outline-variant/30",
       textColor: "text-primary",
     },
@@ -46,17 +46,14 @@ export default function StyleShowcase() {
       <div className="max-w-7xl mx-auto px-8">
         <div className="mb-16 text-center max-w-2xl mx-auto">
           <h2 className="font-headline text-4xl font-bold text-on-surface mb-4">
-            Every Muse Deserves a Melody
+            {t.everyMuseDeserves}
           </h2>
-          <p className="text-on-surface-variant">
-            Choose from a variety of curated literary styles to match her unique
-            personality and the mood of your photo.
-          </p>
+          <p className="text-on-surface-variant">{t.selectStyleDescription}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {styles.map((style) => (
             <div
-              key={style.title}
+              key={style.titleKey}
               className="p-8 bg-surface-container-lowest rounded-lg group hover:bg-primary-container/10 transition-colors"
             >
               <div
@@ -67,14 +64,14 @@ export default function StyleShowcase() {
                 </span>
               </div>
               <h3 className="font-headline text-xl font-bold mb-3">
-                {style.title}
+                {t[style.titleKey]}
               </h3>
               <p className="text-sm text-on-surface-variant leading-relaxed">
-                {style.description}
+                {t[style.descKey]}
               </p>
               <div className="mt-6 flex items-center gap-2 text-xs font-bold text-primary tracking-widest uppercase">
                 <span className="w-4 h-[1px] bg-primary" />
-                {style.tag}
+                {t[style.tagKey]}
               </div>
             </div>
           ))}
