@@ -54,7 +54,7 @@ export default function StyleShowcase() {
           {styles.map((style) => (
             <div
               key={style.titleKey}
-              className="p-8 bg-surface-container-lowest rounded-lg group hover:bg-primary-container/10 transition-colors"
+              className="p-8 bg-surface-container-lowest rounded-lg group hover:bg-primary-container/10 transition-colors flex flex-col"
             >
               <div
                 className={`w-12 h-12 rounded-full ${style.bgColor} flex items-center justify-center mb-6 ${style.textColor} ${style.glow ? "glow-chip" : ""}`}
@@ -66,7 +66,7 @@ export default function StyleShowcase() {
               <h3 className="font-headline text-xl font-bold mb-3">
                 {t[style.titleKey]}
               </h3>
-              <p className="text-sm text-on-surface-variant leading-relaxed">
+              <p className="text-sm text-on-surface-variant leading-relaxed flex-1">
                 {t[style.descKey]}
               </p>
               <div className="mt-6 flex items-center gap-2 text-xs font-bold text-primary tracking-widest uppercase">
