@@ -43,10 +43,10 @@ function checkRateLimit(ip: string): { allowed: boolean; remaining: number; rese
 
 const stylePrompts: Record<Language, Record<StyleType, string>> = {
   en: {
-    ancient: `You are a master poet specializing in classical Chinese Tang and Song dynasty poetry. First, analyze the image carefully:
+    ancient: `You are a bilingual poet who writes English verse inspired by classical Chinese Tang and Song dynasty poetry aesthetics. First, analyze the image carefully:
 - If there is a person in the image: praise the person, focusing on their most attractive features. If the person is female, emphasize her facial beauty, hairstyle, elegant demeanor, clothing, and overall feminine charm. If male, focus on his distinctive features and masculine charm.
 - If there is no person: praise the scenic beauty, atmosphere, composition, and aesthetic elements of the image.
-Write elegant, concise verses (4-7 lines) in classical Chinese poetry style. Use imagery inspired by mountains, moonlight, flowers, mist. Be poetic and profound. Respond ONLY with the poem, nothing else.`,
+Write 4-7 lines of English poetry that captures the essence of classical Chinese verse - use imagery like moonlight, flowers, mist, mountains, clouds, snow, bamboo, plum blossoms, autumn waters. Create parallel structure and musical rhythm typical of classical Chinese poetry. Use END RHYME instead of Chinese characters. Be poetic and profound. Respond ONLY with the English poem, nothing else.`,
     romantic: `You are a Victorian-era romantic poet. First, analyze the image carefully:
 - If there is a person in the image: praise the person with heartfelt admiration, focusing on their most captivating qualities. If female, emphasize her facial elegance, graceful hairstyle, refined clothing, and feminine allure that touches the heart. If male, focus on his distinctive charm and presence.
 - If there is no person: praise the romantic atmosphere, scenic beauty, and emotional resonance of the image.
@@ -66,9 +66,9 @@ Write a short, punchy, impactful statement (1-2 sentences max). Think modern adv
   },
   zh: {
     ancient: `你是一位专精唐宋诗词的大师诗人。首先仔细分析图片：
-- 如果图片中有人物：夸赞人物，重点关注其最吸引人的特质。如果是女性，强调她的面部之美、发型、优雅举止、穿搭以及整体女性魅力。如果是男性，关注他独特的特征和男性魅力。
-- 如果没有人物：夸赞风景之美、氛围、构图和美学元素。
-用古典诗词风格写一首优雅简洁的诗歌（4-7行）。使用山、月、花、雾等古典意象。诗意的、深刻的。只回复诗歌，不要其他内容。`,
+- 如果图片中有人物：重点关注其最吸引人的特质。如果是女性，强调她的面容之美（如眉如远黛、目若秋波）、发型、优雅气质、服饰。如果是男性，关注他独特的面容和气质。
+- 如果没有人物：关注风景的氛围、光影、色彩。
+用五言绝句、七言律诗或词牌名的风格，写4-7句古典诗词。必须使用以下古典意象中的至少3种：月、花、云、风、水、雪、竹、梅、雁、柳、烟、露。要对仗工整、平仄协调、意境深远。严禁使用现代词汇如"房间"、"灵魂"、"微笑"。只回复诗词本身，不要任何解释或描述。`,
     romantic: `你是一位维多利亚时代的浪漫主义诗人。首先仔细分析图片：
 - 如果图片中有人物：发自内心地夸赞人物，重点关注最吸引人的特质。如果是女性，强调她优雅的面容、柔美的发型、精致的穿搭以及打动人心女性魅力。如果是男性，关注他独特的魅力和气质。
 - 如果没有人物：夸赞浪漫的氛围、风景之美和情感共鸣。
@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
     const language = lang === "zh" ? "zh" : "en";
 
     if (!apiKey) {
-      // Return a fallback praise if no API key is configured
+      // Return fallback praises if no API key is configured
       const fallbackPraises: Record<Language, Record<StyleType, string>> = {
         en: {
           ancient: "Moonlight like silk, clear radiance fills the ground. This scene, this moment, touches the heart.",
@@ -143,53 +143,59 @@ export async function POST(request: NextRequest) {
         },
       };
 
-      return NextResponse.json({ praise: fallbackPraises[language][style] }, { headers });
+      return NextResponse.json(
+        { praiseEn: fallbackPraises.en[style], praiseZh: fallbackPraises.zh[style], remaining: rateLimitResult.remaining },
+        { headers }
+      );
     }
-
-    const prompt = stylePrompts[language][style];
 
     const openai = new OpenAI({
       apiKey: apiKey,
       baseURL: "https://dashscope.aliyuncs.com/compatible-mode/v1",
     });
 
-    // Build the messages for Qwen
-    const messages: any[] = [
-      {
-        role: "user",
-        content: [
-          {
-            type: "image_url",
-            image_url: {
-              url: image,
+    // Generate both English and Chinese versions
+    const generateForLang = async (lang: Language, style: StyleType): Promise<string> => {
+      const prompt = stylePrompts[lang][style];
+      const langMessages: any[] = [
+        {
+          role: "user",
+          content: [
+            {
+              type: "image_url",
+              image_url: { url: image },
             },
-          },
-          {
-            type: "text",
-            text: prompt,
-          },
-        ],
-      },
-    ];
+            {
+              type: "text",
+              text: prompt,
+            },
+          ],
+        },
+      ];
 
-    // Call Qwen API via OpenAI compatible interface
-    const response = await openai.chat.completions.create({
-      model: "qwen-vl-plus", // Vision model that supports image input
-      messages: messages,
-      max_tokens: 500,
-    });
+      const response = await openai.chat.completions.create({
+        model: "qwen-vl-plus",
+        messages: langMessages,
+        max_tokens: 500,
+      });
 
-    const praise = response.choices[0]?.message?.content;
+      const content = response.choices[0]?.message?.content;
+      if (!content) {
+        throw new Error(`No ${lang} praise generated`);
+      }
+      return content.trim();
+    };
 
-    if (!praise) {
-      console.error("Qwen response:", JSON.stringify(response, null, 2));
-      return NextResponse.json(
-        { error: "No praise generated" },
-        { status: 500, headers }
-      );
-    }
+    // Generate both versions in parallel
+    const [praiseEn, praiseZh] = await Promise.all([
+      generateForLang("en", style),
+      generateForLang("zh", style),
+    ]);
 
-    return NextResponse.json({ praise: praise.trim(), remaining: rateLimitResult.remaining }, { headers });
+    return NextResponse.json(
+      { praiseEn, praiseZh, remaining: rateLimitResult.remaining },
+      { headers }
+    );
   } catch (error) {
     console.error("Generate error:", error);
     const message = error instanceof Error ? error.message : "Unknown error";

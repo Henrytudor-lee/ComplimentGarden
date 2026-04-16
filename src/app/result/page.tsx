@@ -13,7 +13,8 @@ type StyleType = "ancient" | "romantic" | "devotion" | "article" | "minimal";
 interface PraiseData {
   image: string;
   style: StyleType;
-  praise?: string;
+  praiseEn?: string;
+  praiseZh?: string;
 }
 
 const styleConfig: Record<
@@ -51,9 +52,11 @@ export default function ResultPage() {
   const router = useRouter();
   const [data, setData] = useState<PraiseData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [praise, setPraise] = useState<string>("");
   const [copied, setCopied] = useState(false);
   const { t, language } = useLanguage();
+
+  // Get current praise based on language
+  const currentPraise = language === "zh" ? data?.praiseZh : data?.praiseEn;
 
   useEffect(() => {
     const stored = sessionStorage.getItem("praiseData");
@@ -65,10 +68,9 @@ export default function ResultPage() {
     const parsedData: PraiseData = JSON.parse(stored);
     setData(parsedData);
 
-    if (!parsedData.praise) {
+    if (!parsedData.praiseEn || !parsedData.praiseZh) {
       generatePraise(parsedData);
     } else {
-      setPraise(parsedData.praise);
       setIsLoading(false);
     }
   }, [router]);
@@ -78,7 +80,7 @@ export default function ResultPage() {
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, lang: language }),
+        body: JSON.stringify({ image: data.image, style: data.style }),
       });
 
       if (!response.ok) {
@@ -86,18 +88,31 @@ export default function ResultPage() {
       }
 
       const result = await response.json();
-      setPraise(result.praise);
+      const newData = {
+        ...data,
+        praiseEn: result.praiseEn,
+        praiseZh: result.praiseZh,
+      };
+      setData(newData);
+      sessionStorage.setItem("praiseData", JSON.stringify(newData));
     } catch (error) {
-      setPraise(
-        "There is a light you carry that doesn't just illuminate the room—it ignites the spirit of everyone within it. Like golden hour captured in a single smile."
-      );
+      // Use fallback on error
+      const fallbackEn = "There is a light you carry that doesn't just illuminate the room—it ignites the spirit of everyone within it. Like golden hour captured in a single smile.";
+      const fallbackZh = "你身上散发的光芒不仅照亮了房间——它点燃了每个人内心的灵魂。如同金色的时光被捕捉在一个微笑之中。";
+      const newData = {
+        ...data,
+        praiseEn: fallbackEn,
+        praiseZh: fallbackZh,
+      };
+      setData(newData);
+      sessionStorage.setItem("praiseData", JSON.stringify(newData));
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(praise);
+    await navigator.clipboard.writeText(currentPraise || "");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -106,7 +121,7 @@ export default function ResultPage() {
     if (navigator.share) {
       await navigator.share({
         title: "Aura of Praise",
-        text: praise,
+        text: currentPraise || "",
       });
     } else {
       handleCopy();
@@ -206,7 +221,7 @@ export default function ResultPage() {
                   {t.theStyle} {t[style.titleKey]}
                 </div>
                 <p className="font-headline text-3xl md:text-4xl text-on-surface leading-tight font-medium italic">
-                  &ldquo;{praise}&rdquo;
+                  &ldquo;{currentPraise}&rdquo;
                 </p>
                 <div className="h-0.5 w-16 bg-tertiary-container" />
                 <p className="font-body text-on-surface-variant leading-relaxed text-lg">
